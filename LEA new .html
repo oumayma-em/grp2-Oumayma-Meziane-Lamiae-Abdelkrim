@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LEA - Ligne d'Élégance et d'Accessoire</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff8f6;
+      
+
+    }
+
+    html {
+  scroll-behavior: smooth;
+}
+
+    header.main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #800020;
+      color: #ffd9d9;
+      flex-wrap: nowrap;
+      gap: 15px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .logo-container {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-lea {
+      height: 60px;
+      width: auto;
+      max-width: 100%;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-lea:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a,
+    .nav-links button {
+      color: white;
+      background: none;
+      border: none;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .search-bar-rounded {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      border-radius: 30px;
+      padding: 6px 14px;
+      max-width: 250px;
+      width: 100%;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    .search-bar-rounded input {
+      border: none;
+      background: transparent;
+      outline: none;
+      margin-left: 10px;
+      font-size: 14px;
+      width: 100%;
+      color: #002266;
+    }
+    section {
+  scroll-margin-top: 100px;
+  opacity: 0;
+  transform: translateY(-20px); /* vient du haut au lieu du bas */
+  transition: all 0.8s ease;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #800020;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .burger {
+        display: flex;
+      }
+    }
+
+    .hero {
+      background: url('https://via.placeholder.com/1500x800?text=LEA+Bienvenue') center/cover no-repeat;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    .hero h1 {
+      background-color: #ffd9d9;
+      color: #4d0011;
+      padding: 20px 40px;
+      border-radius: 12px;
+      font-size: 40px;
+    }
+    .hero h2{
+   
+     font-family: optima;
+    }
+
+    .btn {
+      margin-top: 20px;
+      background-color: white;
+      color: #800020;
+      padding: 10px 25px;
+      border: 2px solid #800020;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    .carousel {
+      background-color: #800020;
+      padding: 20px 0;
+      overflow: hidden;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 15px;
+      animation: scroll 20s linear infinite;
+      width: max-content;
+      padding: 0 20px;
+    }
+
+    .carousel-track img {
+      width: 150px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 60px 20px;
+    }
+
+    .product-card {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+    }
+
+    .product-card img {
+      width: 100%;
+      border-radius: 8px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .product-card h3 {
+      color: #800020;
+      margin-top: 10px;
+    }
+    .product-card:hover {
+  transform: rotateY(5deg) scale(1.03);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+.product-card:active {
+  transform: rotateY(0deg) rotateX(0deg) scale(0.98);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) inset;
+}
+
+
+    .price {
+      margin: 10px 0;
+      font-weight: bold;
+    }
+
+    .buy-btn {
+      background-color: #800020;
+      color: white;
+      padding: 8px 20px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .buy-btn:hover {
+      background-color: #5a0018;
+    }
+
+    footer {
+      background-color: #800020;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+
+    .bonjour {
+      margin-top: 15px;
+      font-style: italic;
+    }
+    section {
+  scroll-margin-top: 100px;
+  opacity: 0;
+  transform: translateY(40px); /* vient du haut au lieu du bas */
+  transition: all 0.8s ease;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+  </style>
+</head>
+<body>
+  <header class="main-header">
+    <a href="#" class="logo-container">
+      <img src="images/ChatGPT Image 20 avr. 2025, 21_25_12.png" alt="Logo LEA" class="logo-lea">
+    </a>
+    
+    
+   
+    <nav class="nav-links">
+      <boutton class="buy-btn"><a href="#">Acceuil</a></boutton>
+      <nav class="nav-links" id="nav-links">
+        <button class="buy-btn"><a href="#boutique"boutique>Boutique</a></boutton>
+        <button class="buy-btn">  <div class="cart" onclick="afficherFormulaire()">Panier 🛒 <span class="cart-count" id="cart-count">0</span></div></button>
+       <button class="buy-btn"> <a href="https://www.instagram.com/lea_luxury" target="_blank">Instagram</a></button>
+      </nav>
+    <nav class="nav-links" id="nav-links">
+      <button class="buy-btn"><a href="produit-sac.html">vetement</a> </button> 
+      <button class="buy-btn"><a href="cadeaux.html">Cadeaux</a> </button> 
+    </nav>
+     <div class="search-bar-rounded">
+      <img src="https://img.icons8.com/ios-filled/20/search--v1.png" alt="icon">
+      <input type="text" id="searchInput" placeholder="Chercher un article..." oninput="filterItems()">
+    </div>
+  </nav>
+    
+  </header>
+  
+  
+  <section id="boutique">
+    <h2>Nos Articles</h2>
+    <section id="boutique" style="padding-top: 120px; margin-top: 100px;">
+
+   
+  </section>
+
+  <section class="hero">
+    <div>
+      <h1>Bienvenue chez LEA 
+       <h2> ~Ligne d’Élégance & d’Accessoires,<br> où le luxe se décline en tenues sophistiquées et accessoires raffinés,<br> reflet du charme et de l’art du détail~
+</h2>
+        </h1>
+        <a href="#" class="btn">Nouveautés</a>
+    </div>
+    
+  </section>
+
+  <section class="carousel">
+    <div class="carousel-track">
+     
+    </div>
+  </section>
+  <section class="carousel">
+   
+    <div class="carousel-track">
+      <img src="images/ChatGPT Image 20 avr. 2025, 16_18_50.png" alt="Look 1 ">
+      <img src="images/ChatGPT Image 20 avr. 2025, 16_20_19.png" alt="Look 2 ">
+     <img src="images/Mary.html.jfif" alt="Look 3 ">
+     <img src="images/télécharger (3).html.jfif" alt="Look 4 ">
+     <img src="images/ChatGPT Image 20 avr. 2025, 16_18_50.png" alt="Look 5 ">
+     <img src="images/ceinture - Copie.html"                    alt="look 6 ">
+      <img src="images/télécharger (1).html.jfif" alt="look 7 " >
+      <img src="images/ropa.html.jfif" alt="look 8 " >
+      <img src="images/télécharger (1).html.jfif" alt="look 9 " >
+      
+      <img src="images/ChatGPT Image 20 avr. 2025, 16_18_50.png" alt="Look 1 clone">
+      <img src="images/ChatGPT Image 20 avr. 2025, 16_20_19.png" alt="Look 2 clone">
+      <img src="images/ChatGPT Image 20 avr. 2025, 16_18_50.png" alt="Look 3 clone">
+      <img src="images/ChatGPT Image 20 avr. 2025, 16_20_19.png" alt="Look 4 clone">
+      <img src="images/ChatGPT Image 20 avr. 2025, 16_18_50.png" alt="Look 5 clone">
+      <img src="images/ceinture - Copie.html" alt="look 6 clone" >
+      <img src="images/télécharger (1).html.jfif" alt="look 7 clone" >
+      <img src="images/ropa.html.jfif" alt="look 8 clone" >
+        <img src="images/télécharger (1).html.jfif" alt="look 9 clone" >
+
+
+      <img src="images/ChatGPT Image 20 avr. 2025, 16_18_50.png" alt="Look 1 ">
+       <img src="images/ChatGPT Image 20 avr. 2025, 16_20_19.png" alt="Look 2 ">
+      <img src="images/Mary.html.jfif" alt="Look 3 ">
+      <img src="images/télécharger (3).html.jfif" alt="Look 4 ">
+      <img src="images/ChatGPT Image 20 avr. 2025, 16_18_50.png" alt="Look 5 ">
+      <img src="images/ceinture - Copie.html"                    alt="look 6 ">
+       <img src="images/télécharger (1).html.jfif" alt="look 7 " >
+       <img src="images/ropa.html.jfif" alt="look 8 " >
+       <img src="images/télécharger (1).html.jfif" alt="look 9 " >
+
+    </div>
+  
+  
+</section>
+
+<section class="products">
+  
+  <div class="product-card" onclick="openModal('images/ChatGPT Image 20 avr. 2025, 16_20_19.png', ['images/ChatGPT Image 20 avr. 2025, 16_20_19.png'])">
+    <img src="images/ChatGPT Image 20 avr. 2025, 16_20_19.png" />
+    <h3>Sac Élégant</h3>
+    <p>Design moderne</p>
+    <span class="price">999 MAD</span>
+    <button class="buy-btn" onclick="addToCart('Sac à Main Élégant')">Acheter</button>
+  </div>
+  <div class="product-card" onclick="openModal('images/ChatGPT Image 20 avr. 2025, 16_18_50.png', ['images/ChatGPT Image 20 avr. 2025, 16_18_50.png'])">
+    <img src="images/ChatGPT Image 20 avr. 2025, 16_18_50.png" />
+    <h3>Robe en Jean</h3>
+    <p>Design moderne</p>
+    <span class="price">599MAD</span>
+    <button class="buy-btn" onclick="addToCart('Sac à Main Élégant')">Acheter</button>
+  </div>
+  <div class="product-card" onclick="openModal('images/ceinture - Copie.html', ['images/ceinture - Copie.html'])">
+    <img src="images/ceinture - Copie.html" />
+    <h3>Ceinture en Cuir</h3>
+    <p>Easily match various suits .</p>
+    <span class="price">300 MAD</span>
+    <button class="buy-btn" onclick="addToCart('Sac à Main Élégant')">Acheter</button>
+  </div>
+  <div class="product-card" onclick="openModal('images/télécharger (1).html.jfif', ['images/télécharger (1).html.jfif'])">
+    <img src="images/télécharger (1).html.jfif" />
+    <h3>Collier</h3>
+    <p>Accessoire chic</p>
+    <span class="price">259 MAD</span>
+    <button class="buy-btn" onclick="addToCart('Sac à Main Élégant')">Acheter</button>
+  </div><div class="product-card" onclick="openModal('images/Mary.html.jfif', ['images/Mary.html.jfif'])">
+    <img src="images/Mary.html.jfif" />
+    <h3>Enssemble en Jean</h3>
+    <p>Designe moderne</p>
+    <span class="price">999 MAD</span>
+    <button class="buy-btn" onclick="addToCart('Sac à Main Élégant')">Acheter</button>
+  </div>
+  <div class="product-card" onclick="openModal('images/ropa.html.jfif', ['images/ropa.html.jfif'])">
+    <img src="images/ropa.html.jfif" />
+    <h3>Robe en Jean</h3>
+    <p>Designe moderne</p>
+    <span class="price">899 MAD</span>
+    <button class="buy-btn" onclick="addToCart('Sac à Main Élégant')">Acheter</button>
+  </div>
+  <div class="product-card" onclick="openModal('images/télécharger (5).jfif', ['images/télécharger (5).jfif'])">
+    <img src="images/télécharger (5).jfif" />
+    <h3>Collier d'été</h3>
+    <p>Donner un éclat pour votre tenue d'été</p>
+    <span class="price">150 MAD</span>
+    <button class="buy-btn" onclick="addToCart('Sac à Main Élégant')">Acheter</button>
+    </div>
+    <div class="product-card" onclick="openModal('images/télécharger (1).html.jfif', ['images/télécharger (1).html.jfif'])">
+    <img src="images/télécharger (1).html.jfif" />
+    <h3>Tenue class </h3>
+    <p>Donner un éclat pour votre tenue d'été</p>
+    <span class="price">1500 MAD</span>
+    <button class="buy-btn" onclick="addToCart('Sac à Main Élégant')">Acheter</button>
+    </div>
+  <div class="product-card" onclick="openModal('images/télécharger (3).html.jfif', ['images/télécharger (3).html.jfif'])">
+    <img src="images/télécharger (3).html.jfif" />
+    <h3>Tenue class gris</h3>
+    <p>tenue class pour tout les jours</p>
+    <span class="price">1555 MAD</span>
+    <button class="buy-btn" onclick="addToCart('Sac à Main Élégant')">Acheter</button> 
+   </div>
+  <div class="product-card" onclick="openModal('images/télécharger (6).jfif', ['images/télécharger (6).jfif'])">
+    <img src="images/télécharger (6).jfif" />
+    <h3>Bague </h3>
+    <p>Donner un éclat pour votre tenue d'été</p>
+    <span class="price">150 MAD</span>
+    <button class="buy-btn" onclick="addToCart('Sac à Main Élégant')">Acheter</button>
+  </div>
+</section>
+
+
+<footer>
+    &copy; 2025 LEA - Ligne d'Élégance et d'Accessoire. Tous droits réservés.
+    <div class="bonjour">Bonjour chez LEA est une marque de haute qualité coutue et traitée à main.<br>Nous vous souhaitons une très belle expérience</div>
+    <a href="index.html" style="display: inline-block; margin-top: 10px; background-color: white; color: #800020; padding: 10px 20px; border-radius: 25px; font-weight: bold; text-decoration: none;">← Retour à la Boutique</a>
+  </footer>
+  <script>
+    function filterItems() {
+      const searchInput = document.getElementById('searchInput').value.toLowerCase();
+      const items = document.querySelectorAll('.product-card');
+
+      items.forEach(item => {
+        const title = item.querySelector('h3').textContent.toLowerCase();
+        if (title.includes(searchInput)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+  </script>
+  </script>
+  <script>
+    function openModal(mainImage, galleryImages) {
+      document.getElementById('mainImage').src = mainImage;
+      const gallery = document.getElementById('gallery');
+      gallery.innerHTML = '';
+  
+      galleryImages.forEach(img => {
+        const image = document.createElement('img');
+        image.src = img;
+        image.style.height = '80px';
+        image.style.cursor = 'pointer';
+        image.style.borderRadius = '8px';
+        image.onclick = () => document.getElementById('mainImage').src = img;
+        gallery.appendChild(image);
+      });
+  
+      document.getElementById('productModal').style.display = 'flex';
+    }
+  
+    function closeModal(event) {
+      const modal = document.getElementById('productModal');
+      const content = document.getElementById('modalContent');
+      // Fermer uniquement si on clique en dehors du contenu
+      if (!event || !content.contains(event.target)) {
+        modal.style.display = 'none';
+      }
+    }
+  </script>
+  
+  
+  <div id="productModal" onclick="closeModal(event)" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; justify-content:center; align-items:center;">
+    <div id="modalContent" style="background:white; border-radius:10px; padding:20px; max-width:90%; position:relative;">
+      <span style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:20px;" onclick="closeModal()">✖</span>
+      <img id="mainImage" src="" style="width:300px; border-radius:10px;">
+      <div id="gallery" style="display:flex; gap:10px; margin-top:10px; overflow-x:auto;"></div>
+      <button class="buy-btn">Acheter</button>
+    </div>
+  </div>
+  <script>
+   
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+  
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+  <script>
+    let cart = [];
+  
+    function addToCart(productName) {
+      cart.push(productName);
+      updateCartCount(); 
+    }
+  
+    function updateCartCount() {
+      document.getElementById('cart-count').textContent = cart.length;
+    }
+  </script>
+  
+  
+  
+ 
+</body>
+
+
+</html>

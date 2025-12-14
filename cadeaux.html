@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadeaux - LEA</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #fff8f6;
+    }
+  
+    .back-link {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      color: #ffd9d9;
+      font-size: 14px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      background-color: #800020;
+      color: #ffd9d9;
+      flex-wrap: wrap;
+      gap: 15px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    
+    .logo-container {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-lea {
+      height: 60px;
+      width: auto;
+      max-width: 100%;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-lea:hover {
+      transform: scale(1.05);
+    }
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 80px 20px;
+      gap: 20px;
+      text-align: center;
+    }
+    .product-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 250px;
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px
+    }
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .product-card:hover {
+  transform: rotateY(5deg) scale(1.03);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+.price {
+      margin: 10px 0;
+      font-weight: bold;
+    }
+    .buy-btn {
+      background-color: #800020;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+    <div style="text-align: center; padding: 20px;">
+        <button><a href="LEA new .html" style="background-color: #800020; color: white; text-decoration: none; padding: 20px 30px; border-radius: 25px; font-weight: bold;"  class="back-link">← Retour à la Boutique</a></button>
+      </div>
+      
+
+    <header>
+        <a href="#" class="logo-container">
+            <img src="images/ChatGPT Image 20 avr. 2025, 21_25_12.png" alt="Logo LEA" class="logo-lea">
+          </a>
+          
+      <h1>Idées Cadeaux ✨</h1>
+      <p>Offrez de l'élégance<br> avec notre sélection raffinée🎀🧸</p>
+    </header>
+  
+    <section class="products">
+        <div class="product-card" onclick="openModal('images/Custom charm bracelet 🫖🌷.html.jfif', ['images/Custom charm bracelet 🫖🌷.html.jfif'])">
+            <img src="images/Custom charm bracelet 🫖🌷.html.jfif" />
+            <h3>Bracelet charm🎀🧸 </h3>
+            <h2>Accessoire a customiser ,<br>avec des charms de votre choix</h2>
+            <span class="price">249MAD</span>
+            <button class="buy-btn">Acheter</button> 
+          </div>
+          <div class="product-card" onclick="openModal('images/Gift box “ Teddy”🧸.html.jfif', ['images/Gift box “ Teddy”🧸.html.jfif'])">
+            <img src="images/Gift box “ Teddy”🧸.html.jfif" alt="Bougie parfumée">
+        <h3>Box Mug,Scruchie,Bloc Note🤍 </h3>
+        <p class="price">269 MAD</p>
+            <button class="buy-btn">Acheter</button> 
+          </div>
+      
+      </div> <div class="product-card" onclick="openModal('images/télécharger (3).jfif', ['images/télécharger (3).jfif'])">
+        <img src="images/télécharger (3).jfif" />
+        <h3> Collier d'amitié </h3>
+        <h2>Accessoire avec votre initiale</h2>
+        <span class="price">230MAD</span>
+        <button class="buy-btn">Acheter</button> 
+      </div>
+      <div class="product-card" onclick="openModal('images/télécharger (4).jfif', ['images/télécharger (4).jfif'])">
+        <img src="images/télécharger (4).jfif" />
+        <h3>Box d'amour🎀 </h3>
+        <h2>Accessoire </h2>
+        <span class="price">345MAD</span>
+        <button class="buy-btn">Acheter</button> 
+      </div>
+      <div class="product-card" onclick="openModal('images/Achetez ici - Ensemble Bijou Femme.jfif', ['images/Achetez ici - Ensemble Bijou Femme.jfif'])">
+        <img src="images/Achetez ici - Ensemble Bijou Femme.jfif" />
+        <h3>Enssemble bijoux </h3>
+        <h2>Accessoire avec des pure perle.</h2>
+        <span class="price">300MAD</span>
+        <button class="buy-btn">Acheter</button> 
+      </div>
+      
+      <div class="product-card" onclick="openModal('images/candle.html.jfif', ['images/candle.html.jfif'])">
+        <img src="images/candle.html.jfif" />
+        <h3>Bougie Parfumée🤍 </h3>
+        <h2>Ambre+cherry.</h2>
+        <p class="price">199 MAD</p>
+        <button class="buy-btn">Acheter</button>
+    </section>
+    <script>
+        function toggleMenu() {
+          const nav = document.getElementById('LEA new .html');
+          nav.classList.toggle('show');
+        }
+      </script>
+      
+        <a href="cadeaux.html" style="display: inline-block; margin-top: 10px; background-color: white; color: #800020; padding: 10px 20px; border-radius: 25px; font-weight: bold; text-decoration: none;">← Retour à la Boutique</a>
+      </footer>
+      <script>
+        function openModal(mainImage, galleryImages) {
+          document.getElementById('mainImage').src = mainImage;
+          const gallery = document.getElementById('gallery');
+          gallery.innerHTML = '';
+      
+          galleryImages.forEach(img => {
+            const image = document.createElement('img');
+            image.src = img;
+            image.style.height = '80px';
+            image.style.cursor = 'pointer';
+            image.style.borderRadius = '8px';
+            image.onclick = () => document.getElementById('mainImage').src = img;
+            gallery.appendChild(image);
+          });
+      
+          document.getElementById('productModal').style.display = 'flex';
+        }
+      
+        function closeModal(event) {
+          const modal = document.getElementById('productModal');
+          const content = document.getElementById('modalContent');
+          // Fermer uniquement si on clique en dehors du contenu
+          if (!event || !content.contains(event.target)) {
+            modal.style.display = 'none';
+          }
+        }
+      </script>
+      
+      
+  <div id="productModal" onclick="closeModal(event)" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; justify-content:center; align-items:center;">
+    <div id="modalContent" style="background:white; border-radius:10px; padding:20px; max-width:90%; position:relative;">
+      <span style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:20px;" onclick="closeModal()">✖</span>
+      <img id="mainImage" src="" style="width:300px; border-radius:10px;">
+      <div id="gallery" style="display:flex; gap:10px; margin-top:10px; overflow-x:auto;"></div>
+    </div>
+  </div>
+      
+  
+  </body>
+  </html>
+  
