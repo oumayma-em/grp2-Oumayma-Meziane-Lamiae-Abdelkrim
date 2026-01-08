@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>CryptoFolio Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <h2 class="logo">CryptoFolio</h2>
+    <nav>
+      <ul>
+        <li><button class="nav-btn active" data-target="dashboard">Dashboard</button></li>
+        <li><button class="nav-btn" data-target="module1">Actifs Crypto</button></li>
+        <li><button class="nav-btn" data-target="module2">Portefeuilles</button></li>
+      </ul>
+    </nav>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <h1 id="page-title">Dashboard</h1>
+    </header>
+    <section id="dashboard" class="page-section">
+      <h2>Vue globale</h2>
+      <p>Cette section présente une vue synthétique des investissements.</p>
+
+      <canvas id="portfolioChart" width="400" height="200"></canvas>
+    </section>
+    <section id="module1" class="page-section hidden">
+      <h2>Gestion des Actifs Crypto</h2>
+      <form id="crypto-form">
+        <input type="hidden" id="crypto-id">
+
+        <div class="form-row">
+          <label>Nom</label>
+          <input type="text" id="crypto-name" required>
+        </div>
+
+        <div class="form-row">
+          <label>Symbole</label>
+          <input type="text" id="crypto-symbol" required>
+        </div>
+
+        <div class="form-row">
+          <label>Quantité</label>
+          <input type="number" id="crypto-qty" step="0.0001" required>
+        </div>
+
+        <div class="form-row">
+          <label>Prix d'achat (USD)</label>
+          <input type="number" id="crypto-buy-price" step="0.01" required>
+        </div>
+
+        <div class="form-row">
+          <label>Portefeuille</label>
+          <select id="crypto-portfolio"></select>
+        </div>
+
+        <button type="submit">Enregistrer</button>
+      </form>
+      <div class="list-header">
+        <input type="text" id="crypto-search" placeholder="Rechercher par nom ou symbole">
+        <select id="crypto-sort">
+          <option value="name">Nom (A-Z)</option>
+          <option value="value">Valeur totale</option>
+        </select>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Symbole</th>
+            <th>Quantité</th>
+            <th>Prix d'achat</th>
+            <th>Valeur estimée</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="crypto-table-body"></tbody>
+      </table>
+    </section>
+    <section id="module2" class="page-section hidden">
+      <h2>Portefeuilles</h2>
+
+      <form id="portfolio-form">
+        <div class="form-row">
+          <label>Nom du portefeuille</label>
+          <input type="text" id="portfolio-name" required>
+        </div>
+        <button type="submit">Ajouter</button>
+      </form>
+
+      <ul id="portfolio-list" class="portfolio-list"></ul>
+    </section>
+
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
