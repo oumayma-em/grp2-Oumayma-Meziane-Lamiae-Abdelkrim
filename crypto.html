@@ -1,104 +1,200 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>CryptoFolio Dashboard</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CryptoFolio 2.0</title>
+  <link rel="stylesheet" href="style.css" />
+ 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
-
-<body>
-<div class="layout">
-  <aside class="sidebar">
-    <h2 class="logo">CryptoFolio</h2>
-    <nav>
-      <ul>
-        <li><button class="nav-btn active" data-target="dashboard">Dashboard</button></li>
-        <li><button class="nav-btn" data-target="module1">Actifs Crypto</button></li>
-        <li><button class="nav-btn" data-target="module2">Portefeuilles</button></li>
-      </ul>
-    </nav>
-  </aside>
-  <main class="main">
-    <header class="topbar">
-      <h1 id="page-title">Dashboard</h1>
-    </header>
-    <section id="dashboard" class="page-section">
-      <h2>Vue globale</h2>
-      <p>Cette section présente une vue synthétique des investissements.</p>
-
-      <canvas id="portfolioChart" width="400" height="200"></canvas>
-    </section>
-    <section id="module1" class="page-section hidden">
-      <h2>Gestion des Actifs Crypto</h2>
-      <form id="crypto-form">
-        <input type="hidden" id="crypto-id">
-
-        <div class="form-row">
-          <label>Nom</label>
-          <input type="text" id="crypto-name" required>
-        </div>
-
-        <div class="form-row">
-          <label>Symbole</label>
-          <input type="text" id="crypto-symbol" required>
-        </div>
-
-        <div class="form-row">
-          <label>Quantité</label>
-          <input type="number" id="crypto-qty" step="0.0001" required>
-        </div>
-
-        <div class="form-row">
-          <label>Prix d'achat (USD)</label>
-          <input type="number" id="crypto-buy-price" step="0.01" required>
-        </div>
-
-        <div class="form-row">
-          <label>Portefeuille</label>
-          <select id="crypto-portfolio"></select>
-        </div>
-
-        <button type="submit">Enregistrer</button>
-      </form>
-      <div class="list-header">
-        <input type="text" id="crypto-search" placeholder="Rechercher par nom ou symbole">
-        <select id="crypto-sort">
-          <option value="name">Nom (A-Z)</option>
-          <option value="value">Valeur totale</option>
-        </select>
+<body class="light">
+  <div class="app-layout">
+   
+    <aside class="sidebar">
+      <div class="brand">
+        <i class="fa-solid fa-coins"></i>
+        <span>CryptoFolio 2.0</span>
       </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>Symbole</th>
-            <th>Quantité</th>
-            <th>Prix d'achat</th>
-            <th>Valeur estimée</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="crypto-table-body"></tbody>
-      </table>
-    </section>
-    <section id="module2" class="page-section hidden">
-      <h2>Portefeuilles</h2>
-
-      <form id="portfolio-form">
-        <div class="form-row">
-          <label>Nom du portefeuille</label>
-          <input type="text" id="portfolio-name" required>
+      <nav class="nav">
+        <button class="nav-btn active" data-target="dashboard">
+          <i class="fa-solid fa-chart-line"></i> Dashboard
+        </button>
+        <button class="nav-btn" data-target="module1">
+          <i class="fa-solid fa-bitcoin-sign"></i> Actifs Crypto
+        </button>
+        <button class="nav-btn" data-target="module2">
+          <i class="fa-solid fa-wallet"></i> Portefeuilles
+        </button>
+        <div class="sidebar-footer">
+          <button id="toggle-theme" class="ghost"><i class="fa-solid fa-moon"></i> Thème</button>
         </div>
-        <button type="submit">Ajouter</button>
-      </form>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <h1 id="page-title">Dashboard</h1>
+        <div class="topbar-actions">
+          <div class="search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input id="global-search" type="text" placeholder="Recherche globale..." />
+          </div>
+          <button class="ghost" id="clear-storage"><i class="fa-solid fa-trash"></i> Reset data</button>
+        </div>
+      </header>
+      <section id="dashboard" class="page-section">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-title">Valeur totale</div>
+            <div class="kpi-value" id="kpi-total-value">$0.00</div>
+            <div class="kpi-sub">Mise à jour via API</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Gain / Perte</div>
+            <div class="kpi-value" id="kpi-profit-loss">0 %</div>
+            <div class="kpi-sub">Vs prix d'achat</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Top performance</div>
+            <div class="kpi-value" id="kpi-top-asset">—</div>
+            <div class="kpi-sub">Variation 24h</div>
+          </div>
+        </div>
 
-      <ul id="portfolio-list" class="portfolio-list"></ul>
-    </section>
+        <div class="panel-grid">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>BTC (USD) - 7 jours</h3>
+              <span class="badge">CoinGecko</span>
+            </div>
+            <canvas id="btcChart" height="120"></canvas>
+          </div>
 
-  </main>
-</div>
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Répartition par portefeuille</h3>
+              <span class="badge">Local</span>
+            </div>
+            <canvas id="pieChart" height="120"></canvas>
+          </div>
+        </div>
 
-<script src="app.js"></script>
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Top 5 cryptos du marché</h3>
+            <button id="refresh-top" class="ghost"><i class="fa-solid fa-rotate"></i> Rafraîchir</button>
+          </div>
+          <div id="top-market" class="top-market"></div>
+        </div>
+      </section>
+
+      <section id="module1" class="page-section hidden">
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Ajouter / Modifier un actif crypto</h3>
+          </div>
+          <form id="crypto-form" class="form-grid">
+            <input type="hidden" id="crypto-id" />
+            <div class="form-field">
+              <label>Nom</label>
+              <input id="crypto-name" type="text" placeholder="Bitcoin" required />
+            </div>
+            <div class="form-field">
+              <label>Symbole</label>
+              <input id="crypto-symbol" type="text" placeholder="BTC" required />
+            </div>
+            <div class="form-field">
+              <label>Quantité</label>
+              <input id="crypto-qty" type="number" step="0.0001" min="0" required />
+            </div>
+            <div class="form-field">
+              <label>Prix d'achat ($)</label>
+              <input id="crypto-buy-price" type="number" step="0.01" min="0" required />
+            </div>
+            <div class="form-field">
+              <label>Portefeuille</label>
+              <select id="crypto-portfolio" required></select>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="primary"><i class="fa-solid fa-plus"></i> Enregistrer</button>
+              <button type="reset" class="ghost"><i class="fa-solid fa-eraser"></i> Réinitialiser</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Actifs Crypto</h3>
+            <div class="panel-tools">
+              <input id="crypto-search" type="text" placeholder="Rechercher (nom / symbole)" />
+              <select id="crypto-sort">
+                <option value="name">Tri: Nom</option>
+                <option value="value">Tri: Valeur</option>
+                <option value="gain">Tri: Gain (%)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Symbole</th>
+                  <th>Quantité</th>
+                  <th>Prix d'achat</th>
+                  <th>Prix actuel</th>
+                  <th>Valeur</th>
+                  <th>Gain (%)</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="crypto-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="crypto-detail-modal" class="modal hidden">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 id="detail-title">Détail actif</h3>
+              <button id="close-detail" class="ghost"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="detail-body" class="detail-body">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="module2" class="page-section hidden">
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Portefeuilles</h3>
+          </div>
+          <form id="portfolio-form" class="form-inline">
+            <input id="portfolio-name" type="text" placeholder="Nom du portefeuille" required />
+            <button class="primary" type="submit"><i class="fa-solid fa-plus"></i> Ajouter</button>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Liste des portefeuilles</h3>
+          </div>
+          <ul id="portfolio-list" class="list"></ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast hidden"><span id="toast-msg"></span></div>
+
+  <script src="app.js"></script>
+  <footer>
+    <div class="footer-content">
+      <span>© 2026 CryptoFolio 2.0. Tous droits réservés.</span>
+    </div>
 </body>
 </html>
