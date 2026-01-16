@@ -229,7 +229,6 @@ function openDetail(id) {
     });
   }).catch(() => {});
 }
--
 function initSearchAndSort() {
   const searchInput = $("#crypto-search");
   const sortSelect = $("#crypto-sort");
